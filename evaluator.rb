@@ -1,0 +1,21 @@
+class Evaluator
+
+  def self.formula(formula, values)
+    # Remove everything that isn't a variable, ()'s, decimal points, and basic math operations
+    formula.gsub!(/((?![qQ0-9\s\.\-\+\*\/\(\)]).)*/, '').upcase!
+    begin
+      formula.gsub!(/Q\d+/) { |match|
+        (
+          values[match.to_sym] &&
+          values[match.to_sym].class.ancestors.include?(Numeric) ?
+          values[match.to_sym].to_s :
+          '0'
+        )
+      }
+      instance_eval(formula)
+    rescue Exception => e
+      e.inspect
+    end
+  end
+
+end
