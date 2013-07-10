@@ -1,10 +1,7 @@
 require_relative 'evaluator'
 require 'pry'
 
-def f(x)
-  Evaluator.formula(String.new(@formula), {Q0: x}).round(5)
-end
-
+# Usage: ruby regula_falsi.rb "Q0**3 - 5*Q0 - 7" 2 3
 def regula_falsi(a, b)
   @tolerance = 12
   @x = nil
